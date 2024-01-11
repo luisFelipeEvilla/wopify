@@ -1,11 +1,16 @@
 /* Components */
 "use client";
-import { Counter } from "./components/Counter/Counter";
 import { useState } from "react";
-import { RadioGroup } from "@headlessui/react";
 import Image from "next/image";
-import { Accordion, AccordionItem, Button } from "@nextui-org/react";
-import { StarIcon } from '@heroicons/react/24/outline';
+import {
+  Accordion,
+  AccordionItem,
+  Button,
+  useDisclosure,
+} from "@nextui-org/react";
+import { StarIcon } from "@heroicons/react/24/outline";
+import CreditCardModal from "./components/Modals/CreditCard";
+
 
 const product = {
   name: "Basic Tee 6-Pack",
@@ -68,9 +73,16 @@ const reviews = { href: "#", average: 4, totalCount: 117 };
 export default function IndexPage() {
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
   const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
   return (
-    <div className="flex flex-col gap-4 p-8">
+    <div className="flex flex-col xl:flex-row gap-4 p-8">
+      <CreditCardModal 
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        onClose={onClose}
+      />
+
       {/* Image gallery */}
 
       <section>
@@ -82,11 +94,11 @@ export default function IndexPage() {
         />
       </section>
 
-      <section className="flex flex-col gap-8">
+      <section className="flex flex-col gap-8 xl:max-w-[50%]">
         <div className="flex flex-col gap-2">
           <h3 className="font-semibold text-2xl">{product.name}</h3>
 
-           {
+          {
             <div className="flex items-center gap-2">
               {Array.from({ length: 5 }).map((_, index) => (
                 <StarIcon
@@ -100,7 +112,7 @@ export default function IndexPage() {
                 ({reviews.totalCount} reviews)
               </span>
             </div>
-           }
+          }
           <p className="font-medium text-xl"> {product.price}</p>
         </div>
 
@@ -110,13 +122,12 @@ export default function IndexPage() {
           color="success"
           radius="sm"
           size="lg"
-          className="text-white w-full"
+          className="text-white w-full xl:w-[300px]"
+          onPress={onOpen}
         >
           Pay with credit card
         </Button>
-      </section>
 
-      <section>
         <Accordion selectionMode="multiple">
           <AccordionItem title="Features">
             <ItemList items={product.highlights} />
