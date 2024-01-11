@@ -12,7 +12,7 @@ export const Nav = () => {
 
   return (
     <nav className={styles.nav}>
-      <Link
+      {/* <Link
         className={`${styles.link} ${pathname === '/' ? styles.active : ''}`}
         href="/"
       >
@@ -25,7 +25,7 @@ export const Nav = () => {
         href="/verify"
       >
         Verify
-      </Link>
+      </Link> */}
     </nav>
   )
 }
