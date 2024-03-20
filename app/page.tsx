@@ -75,12 +75,22 @@ export default function IndexPage() {
   const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
+  const [creditCard, setCreditCard] = useState({
+    number: "",
+    expiry: "",
+    cvc: "",
+    name: "",
+    focus: "",
+  });
+
   return (
     <div className="flex flex-col xl:flex-row gap-4 p-8">
       <CreditCardModal 
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         onClose={onClose}
+        creditCard={creditCard}
+        setCreditCard={setCreditCard}
       />
 
       {/* Image gallery */}
